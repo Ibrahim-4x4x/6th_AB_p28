@@ -365,8 +365,8 @@
             <div class="sentence-item">
                 <div class="sentence-text">2️⃣ Asma's lived in Amman since she was six.</div>
                 <div class="truefalse-group">
-                    <label><input type="radio" name="tf2" value="T"> T (True)</label>
-                    <label><input type="radio" name="tf2" value="F"> F (False)</label>
+                    <label><input type="radio" name="tf2" value="T"> T</label>
+                    <label><input type="radio" name="tf2" value="F"> F</label>
                 </div>
             </div>
             <div class="sentence-item">
