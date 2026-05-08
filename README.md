@@ -360,7 +360,7 @@
         <div class="activity-title">🎧 2. Circle T (true) or F (false) — based on the audio/text (inference)</div>
         <div class="activity-content">
             <div class="sentence-item">
-                <div class="sentence-text">📌 Habib's been waiting for two hours. (He's been waiting for half an hour) → <strong>False</strong> (example done)</div>
+                <div class="sentence-text">1️⃣ Habib's been waiting for two hours. (He's been waiting for half an hour) → <strong>False</strong> (example done)</div>
             </div>
             <div class="sentence-item">
                 <div class="sentence-text">2️⃣ Asma's lived in Amman since she was six.</div>
@@ -446,7 +446,7 @@
 
 <script>
     // ======================= SECURITY & LOCK MECHANISM =======================
-    const TEACHER_PASSWORD = "2020";
+    const TEACHER_PASSWORD = "6060";
     let isLocked = false;
     let resultWasClicked = false;
     const lockOverlay = document.getElementById('lockOverlay');
