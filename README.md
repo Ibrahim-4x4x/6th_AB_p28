@@ -625,7 +625,7 @@ function lockPage() {
         return total;
     }
     
-    function onResultClick() {
+    //function onResultClick() {
         if (isLocked) return;
         computeAndDisplayScores();
         if (hasAnyAnswers()) {
