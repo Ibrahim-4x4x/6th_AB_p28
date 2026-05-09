@@ -625,11 +625,11 @@ function lockPage() {
         return total;
     }
     
-    //function onResultClick() {
+    function onResultClick() {
         if (isLocked) return;
         computeAndDisplayScores();
         if (hasAnyAnswers()) {
-            lockPage('Activity completed — locked');
+            //lockPage('Activity completed — locked');
             alert("✅ Activity Completed and Locked. Please ask teacher to unlock with password.");
         }
     }
