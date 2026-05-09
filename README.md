@@ -494,18 +494,17 @@
     document.addEventListener('input', updateFlag);
     updateFlag();
 
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden && !isLocked && answerFlag) lockPage('tab minimize');
+    document.addEventListener("visibilitychange", function() {
+    if (document.hidden) { lockPage(); }
     });
-    window.addEventListener("blur", function() {
-        if (!isLocked && answerFlag) lockPage('window blur');
-    });
+    window.addEventListener("blur",... function()
+    );
     window.addEventListener('beforeunload', function(e) {
         if (answerFlag && !isLocked) sessionStorage.setItem('pendingLock', 'true');
     });
     window.addEventListener('load', function() {
         updateFlag();
-        if (localStorage.getItem('worksheet_status') === 'locked') lockPage('persisted');
+        if (localStorage.getItem('worksheet_status') === 'locked') lockPage('initial');
         if (sessionStorage.getItem('pendingLock') === 'true') {
             sessionStorage.removeItem('pendingLock');
             if (!isLocked && answerFlag) lockPage('reload');
