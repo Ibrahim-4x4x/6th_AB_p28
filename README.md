@@ -445,6 +445,22 @@
 </div>
 
 <script>
+    /* --- GLOBAL SECURITY - STARTS IMMEDIATELY --- */
+
+// Prevents right-click from the first second
+document.oncontextmenu = () => { alert("Right-click disabled"); return false; };
+
+// Locks if they even THINK about leaving the tab
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden) lockPage();
+});
+
+// The actual lock function
+function lockPage() {
+    document.getElementById('lockOverlay').style.display = 'flex';
+    document.body.style.filter = "blur(10px)";
+    localStorage.setItem('worksheet_status', 'locked');
+}
     // ======================= SECURITY & LOCK MECHANISM =======================
     const TEACHER_PASSWORD = "6060";
     let isLocked = false;
@@ -494,17 +510,18 @@
     document.addEventListener('input', updateFlag);
     updateFlag();
 
-    document.addEventListener("visibilitychange", function() {
-    if (document.hidden) { lockPage(); }
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden && !isLocked && answerFlag) lockPage('tab minimize');
     });
-    window.addEventListener("blur",... function()
-    );
+    window.addEventListener("blur", function() {
+        if (!isLocked && answerFlag) lockPage('window blur');
+    });
     window.addEventListener('beforeunload', function(e) {
         if (answerFlag && !isLocked) sessionStorage.setItem('pendingLock', 'true');
     });
     window.addEventListener('load', function() {
         updateFlag();
-        if (localStorage.getItem('worksheet_status') === 'locked') lockPage('initial');
+        if (localStorage.getItem('worksheet_status') === 'locked') lockPage('persisted');
         if (sessionStorage.getItem('pendingLock') === 'true') {
             sessionStorage.removeItem('pendingLock');
             if (!isLocked && answerFlag) lockPage('reload');
@@ -516,6 +533,29 @@
             e.preventDefault();
         }
     });
+    // This starts the moment the browser finishes loading the elements
+    window.onload = function() {
+    
+    // 1. Check if they were already locked from a previous visit
+    if (localStorage.getItem('worksheet_status') === 'locked') {
+        lockPage();
+    }
+
+    // 2. Start monitoring tab-switching IMMEDIATELY
+    document.addEventListener('visibilitychange', function() {
+        // No "if started" check here - if they leave, it locks.
+        if (document.hidden) {
+            console.log("Security Trigger: Tab Hidden");
+            lockPage();
+        }
+    });
+
+    // 3. Start monitoring window focus IMMEDIATELY
+    window.addEventListener("blur", function() {
+        console.log("Security Trigger: Window Lost Focus");
+        lockPage();
+    });
+    };
 
     // ======================= SCORING LOGIC =======================
     // Activity 1 (since/for) correct answers
